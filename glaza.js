@@ -1,48 +1,39 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const eyes = document.querySelectorAll('.glaz');
+document.addEventListener('DOMContentLoaded', function () {
     const pupils = document.querySelectorAll('.zrach');
-    const maxOffset = (eyes[0].offsetWidth - pupils[0].offsetWidth) / 2;
 
-    function movePupils(e) {
-        // Проверяем, находится ли курсор внутри любого из глаз
-        let isCursorOnEyes = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    function updateEyeRotation(mouseX, mouseY) {
+        const person = document.querySelector(".glaza");
+        const rect = person.getBoundingClientRect();
+
+        const personX = rect.left + rect.width / 2;
+        const personY = rect.top + rect.height / 2;
+
+        const angleDeg = getAngle(mouseX, mouseY, personX, personY);
+
+        const eyes = document.querySelectorAll(".glaz");
         eyes.forEach(eye => {
-            const eyeRect = eye.getBoundingClientRect();
-            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
-            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
-            const distance = Math.sqrt(
-                Math.pow(e.clientX - eyeCenterX, 2) + 
-                Math.pow(e.clientY - eyeCenterY, 2)
-            );
-            // Если курсор внутри глаза (расстояние меньше радиуса глаза)
-            if (distance < eyeRect.width / 2) {
-                isCursorOnEyes = true;
-            }
-        });
-
-        // Если курсор на любом глазу - центрируем оба зрачка
-        if (isCursorOnEyes) {
-            pupils.forEach(pupil => {
-                pupil.style.transform = 'translate(-50%, -50%)';
-            });
-            return;
-        }
-
-        // Иначе - обычное слежение
-        eyes.forEach((eye, index) => {
-            const eyeRect = eye.getBoundingClientRect();
-            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
-            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
-            const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
-            const distance = Math.min(
-                Math.sqrt(Math.pow(e.clientX - eyeCenterX, 2) + Math.pow(e.clientY - eyeCenterY, 2)),
-                maxOffset
-            );
-            const offsetX = Math.cos(angle) * distance;
-            const offsetY = Math.sin(angle) * distance;
-            pupils[index].style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+            eye.style.transform = `rotate(${90 + angleDeg}deg)`;
         });
     }
 
-    document.addEventListener('mousemove', movePupils);
+    document.addEventListener('mousemove', (e) => {
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+        updateEyeRotation(lastMouseX, lastMouseY);
+    });
+
+    document.addEventListener('scroll', () => {
+        updateEyeRotation(lastMouseX, lastMouseY);
+    });
 });
+
+function getAngle(cx, cy, ex, ey) {
+    const dy = ey - cy,
+          dx = ex - cx,
+          rad = Math.atan2(dy, dx),
+          deg = rad * 180 / Math.PI;
+    return deg;
+}
