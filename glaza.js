@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const pupils = document.querySelectorAll('.zrach');
-
     let lastMouseX = 0;
     let lastMouseY = 0;
 
