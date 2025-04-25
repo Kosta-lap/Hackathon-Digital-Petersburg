@@ -104,3 +104,156 @@ header{
 .logo_box button:hover{
     color: black;
 }
+
+
+/* Description */
+
+
+.description{
+    background: linear-gradient(180deg, #82B8FF 0%, #A1BCDF 100%);
+    position: relative;
+}
+
+/* Eblo */
+.eblo{
+    width: 996px;
+    height: 996px;
+    position: absolute;
+    top: -100px;
+    left: -350px;
+    background: radial-gradient(74.61% 74.61% at 18.6% 13.37%, #FBDE76 0%, #FFBD20 49.52%, #C08800 88.46%, #B07C00 100%);
+    border-radius: 100%;
+}
+
+.glaza {
+    display: flex;
+    position: absolute;
+    top: 200px;
+    right: 75px;
+}
+
+.glaz {
+    width: 175px;
+    height: 175px;
+    background-color: white;
+    border-radius: 100%;
+    margin-right: 85px;
+    position: relative;
+    overflow: hidden;
+}
+
+.glaz:last-child {
+    margin-right: 0px;
+}
+
+.zrach {
+    width: 58px;
+    height: 58px;
+    background-color: black;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease-out;
+}
+
+.rot{
+    width: 128px;
+    height: 128px;
+    border-radius: 100%;
+    position: absolute;
+    background-color: black;
+    top: 536px;
+    right: 225px;
+    clip-path: inset(0 0 50% 0);
+}
+
+
+.half.bottom {
+    background: transparent;
+}
+
+/* Eblo off */
+
+.desc_about{
+    padding: 160px 0px;
+}
+
+.about_box{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.box_desc{
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-align: left;
+}
+
+.box_desc h4{
+    font-weight: 400;
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.box_desc p{
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.possib_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 100px 80px 100px;
+}
+
+.possib_box h3{
+    color:#474747;
+    font-weight: 600;
+    font-size: 32px;
+    margin-bottom: 80px;
+}
+
+.desc_possib{
+    background-color: #D9D9D966;
+    backdrop-filter: blur(30px);
+}
+
+.card_box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.possib_card{
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 54px;
+    backdrop-filter: blur(40px);
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+.possib_card:last-child{
+    margin-right: 0px;
+}
+
+.possib_card img{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 40px;
+}
+
+
+.possib_card p{
+    color: #474747;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+}
