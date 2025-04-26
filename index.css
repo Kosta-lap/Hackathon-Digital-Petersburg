@@ -979,8 +979,17 @@ footer{
 }   
 @media (width < 380px) {
     .lk-content__actions {
-        overflow-x: auto;
-        width: 280px;
+        flex-wrap:wrap;
+    }
+    .footer_box{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .footer_info h4::after{
+        top: 25px;
+    }
+    .footer_info .info_desc{
+        padding-top: 15px;
     }
 }
 @media (pointer:fine) and (hover:hover){
