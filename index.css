@@ -712,6 +712,32 @@ footer{
     margin-bottom: calc(5px + (10 - 5) * (100vw - 320px) / (1920 - 320));
     margin-top: calc(10px + (20 - 10) * (100vw - 320px) / (1920 - 320));
 }
+
+
+/*====================================LK =======================================*/
+.lk {
+}
+.lk-content {
+    max-width:  calc(400px + (1000 - 400) * (100vw - 320px) / (1920 - 320));
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin: 0px auto;
+}
+.lk-content__actions {
+}
+.lk-content__actions-title {
+}
+.lk-content__actions-btn {
+}
+.lk-content__profile {
+}
+.lk-content-profile {
+}
+.lk-content-profile__actions {
+}
+.lk-content-profile__btn {
+}
 .footer_box {
 }
 .footer_info {
