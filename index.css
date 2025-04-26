@@ -318,18 +318,18 @@ header.sticky {
 }
 
 
-/* +++++++++++++++++++++++++++++++++++++ REG PAGE +++++++++++++++++++++++++++++++++=*/
-.reg {
+/* +++++++++++++++++++++++++++++++++++++ REG-log PAGE +++++++++++++++++++++++++++++++++=*/
+.reg-log {
     min-width: 100%;
     min-height: 100%;
     background-color: #FDCC46;
 }
-.reg-content {
+.reg-log-content {
     display: flex;
     align-items: start;
     justify-content: center;
 }
-.reg-header{
+.reg-log-header{
     min-width: calc(75px + (75 - 40) * (100vw - 320px) / (1920 - 320));
     width: 100%;
     display: flex;
@@ -338,7 +338,7 @@ header.sticky {
     margin-bottom: calc(80px + (145 - 80) * (100vw - 320px) / (1920 - 320));
 
 }
-.reg-glaz {
+.reg-log-glaz {
     width: calc(200px + (270 - 200) * (100vw - 320px) / (1920 - 320));
     height: calc(200px + (270 - 200) * (100vw - 320px) / (1920 - 320));
     border-radius: 50%;
@@ -355,7 +355,7 @@ header.sticky {
     top: 50%;
     transform: translateX(-50%);
 }
-.reg-content__form {
+.reg-log-content__form {
     padding-top: calc(15px + (40 - 15) * (100vw - 320px) / (1920 - 320));
     padding-bottom: calc(15px + (40 - 15) * (100vw - 320px) / (1920 - 320));
     padding-right: calc(10px + (30 - 10) * (100vw - 320px) / (1920 - 320));
@@ -370,15 +370,14 @@ header.sticky {
 
 
 }
-.reg-form {
-}
-.reg-form__title {
+
+.reg-log-form__title {
     font-weight: 600;
     text-align: center;
     margin-bottom: calc(20px + (32 - 20) * (100vw - 320px) / (1920 - 320));
     font-size: calc(20px + (32 - 20) * (100vw - 320px) / (1920 - 320));
 }
-.reg-form__input-block {
+.reg-log-form__input-block {
     min-width:calc(250px + (435 - 250) * (100vw - 320px) / (1920 - 320));
     display: flex;
     flex-direction: column;
@@ -386,14 +385,14 @@ header.sticky {
     margin-bottom: calc(20px + (32 - 20) * (100vw - 320px) / (1920 - 320));
 
 }
-.reg-form__input-title {
+.reg-log-form__input-title {
     color:#7C838A;
     font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1920 - 320));
     font-weight: 400;
     padding-left: calc(14px + (22 - 14) * (100vw - 320px) / (1920 - 320));
     margin-bottom: 5px;
 }
-.reg-form__input {
+.reg-log-form__input {
     display: block;
     background-color: rgba(176, 186, 195, 0.4);
     padding-top: calc(10px + (15 - 10) * (100vw - 320px) / (1920 - 320));
@@ -410,18 +409,18 @@ header.sticky {
     opacity: 1;
     transition: .1s;
 }
-.reg-form__input::placeholder{
+.reg-log-form__input::placeholder{
     color: rgba(0, 0, 0, 0.5);
 }
-.reg-form__input:focus::placeholder{
+.reg-log-form__input:focus::placeholder{
     /* color: rgba(0, 0, 0, 0.5); */
     opacity: 0;
     transition: .1s;
 }
-.reg-form__input::placeholder{
+.reg-log-form__input::placeholder{
     color: rgba(0, 0, 0, 0.5);
 }
-.reg-form__send-btn {
+.reg-log-form__send-btn {
     font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1920 - 320));
     font-weight: 500;
     padding-top: calc(8px + (12 - 8) * (100vw - 320px) / (1920 - 320));
@@ -437,24 +436,24 @@ header.sticky {
     transition: .3s;
     margin-bottom: calc(20px + (32 - 20) * (100vw - 320px) / (1920 - 320));
 }
-.reg-form__send-btn:hover{
+.reg-log-form__send-btn:hover{
     transform: scale(1.03);
     background-color: rgb(224, 175, 40);
     transition: .3s;
 
 }
-.reg-form__tip {
+.reg-log-form__tip {
     text-align: center;
     color: rgba(124, 131, 138, 1);
     font-size: calc(14px + (18 - 14) * (100vw - 320px) / (1920 - 320));
 }
-.reg-form__tip-link {
+.reg-log-form__tip-link {
     color: rgba(253, 204, 70, 1);
     display: inline-block;
     text-decoration: none;
     position: relative;
 }
-.reg-form__tip-link::after{
+.reg-log-form__tip-link::after{
     display: block;
     position: absolute;
     width: 100%;
@@ -466,7 +465,7 @@ header.sticky {
     transform: scaleX(0);
     transition: .4s;
 }
-.reg-form__tip-link:hover::after {
+.reg-log-form__tip-link:hover::after {
     transform: scaleX(1);
     transition: .4s;
 
@@ -475,7 +474,7 @@ header.sticky {
 
 @media (width < 1024px) {
 
-    .reg-glaz {
+    .reg-log-glaz {
       display: none;
     }
 }
