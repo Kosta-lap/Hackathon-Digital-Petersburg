@@ -1,3 +1,9 @@
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+  
+
+
 document.addEventListener('DOMContentLoaded', function () {
     let lastMouseX = 0;
     let lastMouseY = 0;
@@ -16,17 +22,29 @@ document.addEventListener('DOMContentLoaded', function () {
             eye.style.transform = `rotate(${90 + angleDeg}deg)`;
         });
     }
+    if (!isTouchDevice() && !isMobile) {
+        // Запускаем скрипт только для десктопов
+        document.addEventListener('mousemove', (e) => {
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+            updateEyeRotation(lastMouseX, lastMouseY);
+        });
 
-    document.addEventListener('mousemove', (e) => {
-        lastMouseX = e.clientX;
-        lastMouseY = e.clientY;
-        updateEyeRotation(lastMouseX, lastMouseY);
-    });
-
-    document.addEventListener('scroll', () => {
-        updateEyeRotation(lastMouseX, lastMouseY);
-    });
+        document.addEventListener('scroll', () => {
+            updateEyeRotation(lastMouseX, lastMouseY);
+        });
+    }
 });
+
+
+const isTouchDevice = () => {
+    return (
+      'ontouchstart' in window || // Проверка touch-событий
+      navigator.maxTouchPoints > 0 || // Макс. количество touch-точек
+      navigator.msMaxTouchPoints > 0 // Для старых IE
+    );
+  };
+
 
 function getAngle(cx, cy, ex, ey) {
     const dy = ey - cy,
