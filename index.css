@@ -297,6 +297,7 @@ header.sticky {
     backdrop-filter: blur(40px);
     border-radius: 15px;
     margin-right: 20px;
+    background-color: rgba(255, 255, 255,0.15);
 }
 
 .possib_card:last-child{
@@ -508,6 +509,7 @@ header.sticky {
     backdrop-filter: blur(40px);
     border-radius: 20px;
     margin-bottom: 50px;
+    background-color: rgba(255, 255, 255,0.25);
 }
 
 .event_card:last-child{
@@ -655,5 +657,66 @@ footer{
     width: 24px;
     height: 24px;
     background-image: url(./images/vk_icon.svg);
+    filter: brightness(0) invert(1);
     position: absolute;
+}
+.footer_href:last-child::after{
+    background-image: url(./images/tg_icon.svg);
+}
+
+.footer_box a:hover{
+    color: #5c5b5b;
+    transition: .3s;
+}
+.footer_box a{
+    width: fit-content;
+    color: #fff;
+    transition: .3s;
+}
+
+
+/* ==================================Info Page ===================================*/
+.info {
+}
+.info-content {
+    max-width:  calc(400px + (1000 - 400) * (100vw - 320px) / (1920 - 320));
+    margin: 0px auto;
+    padding-top: calc(20px + (42 - 20) * (100vw - 320px) / (1920 - 320));
+    padding-bottom: calc(20px + (42 - 20) * (100vw - 320px) / (1920 - 320));
+    padding-right: calc(30px + (85 - 30) * (100vw - 320px) / (1920 - 320));
+    padding-left: calc(30px + (85 - 30) * (100vw - 320px) / (1920 - 320));
+    backdrop-filter: blur(40px);
+    border-radius: 20px;
+    margin-bottom: 50px;
+    background-color: rgba(255, 255, 255,0.35);
+}
+.info-content__text-block {
+    width: 60%;
+    margin-bottom: calc(20px + (35 - 20) * (100vw - 320px) / (1920 - 320));
+}
+.info-content__title {
+    font-weight: 700;
+    font-size: calc(18px + (24 - 18) * (100vw - 320px) / (1920 - 320));
+    margin-bottom: calc(10px + (20 - 10) * (100vw - 320px) / (1920 - 320));
+}
+.info_content__text {
+    font-weight: 400;
+    font-size: calc(12px + (16 - 12) * (100vw - 320px) / (1920 - 320));
+    margin-bottom: calc(3px + (6 - 3) * (100vw - 320px) / (1920 - 320));
+    line-height: calc(18px + (24 - 18) * (100vw - 320px) / (1920 - 320))
+}
+.info-content__subtitle {
+    text-decoration: underline;
+    font-weight: 700;
+    font-size: calc(14px + (18 - 14) * (100vw - 320px) / (1920 - 320));
+    margin-bottom: calc(5px + (10 - 5) * (100vw - 320px) / (1920 - 320));
+    margin-top: calc(10px + (20 - 10) * (100vw - 320px) / (1920 - 320));
+}
+.footer_box {
+}
+.footer_info {
+}
+.info_desc {
+}
+.footer_href {
 }
