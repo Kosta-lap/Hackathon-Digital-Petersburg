@@ -715,7 +715,16 @@ footer{
 
 
 /*====================================LK =======================================*/
+.main_lk{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 .lk {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .lk-content {
     max-width:  calc(400px + (1000 - 400) * (100vw - 320px) / (1920 - 320));
