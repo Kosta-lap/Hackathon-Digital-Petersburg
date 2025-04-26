@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let lastMouseY = 0;
 
     function updateEyeRotation(mouseX, mouseY) {
-        const person = document.querySelector(".reg-form__title");
+        const person = document.querySelector(".reg-log-form__title");
         const rect = person.getBoundingClientRect();
 
         const personX = rect.left + rect.width / 2;
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const angleDeg = getAngle(mouseX, mouseY, personX, personY);
 
-        const eyes = document.querySelectorAll(".reg-glaz");
+        const eyes = document.querySelectorAll(".reg-log-glaz");
         eyes.forEach(eye => {
             eye.style.transform = `rotate(${90 + angleDeg}deg)`;
         });
