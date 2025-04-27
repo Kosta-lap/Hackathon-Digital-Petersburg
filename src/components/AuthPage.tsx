@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import img from "../images/reg-log-logo.svg";
 
 interface FormData {
     name: string;
     password: string;
 }
-import img from "../images/reg-log-logo.svg";
 
 const AuthPage: React.FC = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -120,8 +120,8 @@ const AuthPage: React.FC = () => {
                         <div className="dot"></div>
                     </div>
                     <div className="reg-log-content__form">
-                        <form method="post" action="./index.html" className="reg-log-form">
-                            <h3 className="reg-log-form__title">Регистрация</h3>
+                        <form onSubmit={handleSubmit} className="reg-log-form">
+                            <h3 className="reg-log-form__title">Войти</h3>
                             <div className="reg-log-form__input-block">
                                 <h4 className="reg-log-form__input-title">Имя</h4>
                                 <input
