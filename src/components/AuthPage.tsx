@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import img from "../images/reg-log-logo.svg";
 
 interface FormData {
     name: string;
@@ -114,7 +115,10 @@ const AuthPage: React.FC = () => {
     return (
         <main className="reg-log">
             <div className="reg-log-header container">
-                Логоип
+                <a href="/">
+                
+                <img src={img} alt="logo"/>
+                </a>
             </div>
             <div className="container">
                 <div className="reg-log-content">
@@ -123,7 +127,7 @@ const AuthPage: React.FC = () => {
                     </div>
                     <div className="reg-log-content__form">
                         <form onSubmit={handleSubmit} className="reg-log-form">
-                            <h3 className="reg-log-form__title">Регистрация</h3>
+                            <h3 className="reg-log-form__title">Войти</h3>
                             <div className="reg-log-form__input-block">
                                 <h4 className="reg-log-form__input-title">Имя</h4>
                                 <input

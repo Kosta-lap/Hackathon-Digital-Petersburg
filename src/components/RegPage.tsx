@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../store/userSlice';
 import axios from 'axios';
+import img from "../images/reg-log-logo.svg";
 
 interface FormData {
     name: string;
@@ -114,7 +115,9 @@ const RegPage: React.FC = () => {
     return (
         <main className="reg-log">
             <div className="reg-log-header container">
-                Логотип
+                <a href="/">
+                    <img src={img} alt="logo"/>
+                </a>
             </div>
             <div className="container">
                 <div className="reg-log-content">

@@ -26,6 +26,16 @@ const LkPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { items, loading, error } = useAppSelector((state) => state.eventCategories);
 
+    const [activeButton, setActiveButton] = useState<'name' | 'password' | null>(null);
+
+    const handleNameClick = () => {
+        setActiveButton(prev => prev === 'name' ? null : 'name');
+      };
+      
+      const handlePasswordClick = () => {
+        setActiveButton(prev => prev === 'password' ? null : 'password');
+      };
+
     useEffect(() => {
         dispatch(fetchEventCategories());
     }, [dispatch]);
@@ -60,8 +70,18 @@ const LkPage: React.FC = () => {
                                     <p className="lk-content-profile__name">Имя пользователя</p>
                                 </div>
                                 <div className="lk-content-profile__actions">
-                                    <button className="lk-content-profile__btn">Изменить имя</button>
-                                    <button className="lk-content-profile__btn">Изменить пароль</button>
+                                    <button 
+                                        className={`lk-content-profile__btn ${activeButton === 'name' ? 'active' : ''}`}
+                                        onClick={handleNameClick}
+                                    >
+                                        Изменить имя
+                                    </button>
+                                    <button 
+                                        className={`lk-content-profile__btn ${activeButton === 'password' ? 'active' : ''}`}
+                                        onClick={handlePasswordClick}
+                                    >
+                                        Изменить пароль
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -133,6 +153,78 @@ const LkPage: React.FC = () => {
                                 </div>
                             </div>
                         )}
+                    </div>
+                    <div className={`popup-wrapper ${activeButton === 'name' ? 'active' : ''}`}>
+
+                        <form className="lk-popup-name">
+                            <div className="lk-popup-name__input-block">
+                                <h4 className="lk-popup-name__input-title">Пароль</h4>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Введите пароль"
+                                    className="lk-popup-name__input"
+                                    
+                                />
+                            </div>
+                            <div className="lk-popup-name__input-block">
+                                <h4 className="lk-popup-name__input-title">Новый пароль</h4>
+                                <input
+                                    type="password"
+                                    name="name"
+                                    placeholder="Введите новый пароль"
+                                    className="lk-popup-name__input"
+                                    // value={formData.name}
+                                    // onChange={handleInputChange}
+                                    
+                                />
+                            </div>
+                            <div className="lk-popup-name__input-block">
+                                <h4 className="lk-popup-name__input-title">Подтверждение</h4>
+                                <input
+                                    type="password"
+                                    name="name"
+                                    placeholder="Подтверждение пароля"
+                                    className="lk-popup-name__input"
+                                    // value={formData.name}
+                                    // onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="lk-popup-name__actions">
+                                <button type="button" className={`lk-popup-name__btn ${activeButton === 'name' ? 'active' : ''}`} onClick={handleNameClick}>Отмена</button>
+                                <button type="submit" className="lk-popup-name__btn">Подтвердить</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className={`popup-wrapper ${activeButton === 'password' ? 'active' : ''}`}>
+                        <form className="lk-popup-name">
+                            <div className="lk-popup-name__input-block">
+                                <h4 className="lk-popup-name__input-title">Пароль</h4>
+                                <input
+                                    type="password"
+                                    name="name"
+                                    placeholder="Введите пароль"
+                                    className="lk-popup-name__input"
+                                    
+                                />
+                            </div>
+                            <div className="lk-popup-name__input-block">
+                                <h4 className="lk-popup-name__input-title">Введите новое имя пользователя</h4>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Введите новый пароль"
+                                    className="lk-popup-name__input"
+                                    // value={formData.name}
+                                    // onChange={handleInputChange}
+                                    
+                                />
+                            </div>
+                            <div className="lk-popup-name__actions">
+                                <button type="button" className={`lk-popup-name__btn ${activeButton === 'name' ? 'active' : ''}`} onClick={handlePasswordClick}>Отмена</button>
+                                <button type="submit" className="lk-popup-name__btn">Подтвердить</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <Footer />

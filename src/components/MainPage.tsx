@@ -101,7 +101,7 @@ const MainPage: React.FC = () => {
                         <div className="logo_box">
                             <h1>Твоя карта</h1>
                             <h2>впечатлений</h2>
-                            <button>начать</button>
+                            <button><a href="/login"> начать</a></button>
                         </div>
                     </div>
                     <img className="logo_arrow" src={arrow} alt='pic' />
