@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setUser } from '../store/userSlice';
 import axios from 'axios';
 
@@ -15,6 +16,7 @@ const RegPage: React.FC = () => {
 
     const [error, setError] = useState<string | null>(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -34,28 +36,26 @@ const RegPage: React.FC = () => {
             return;
         }
 
-        console.log(formData.name)
-        console.log(formData.password)
 
 
         try {
             // Отправка данных на сервер
-            const response = await axios.post('http://your-api-url/register', {
+            const response = await axios.post('http://localhost:8000/api/auth/registration/', {
                 username: formData.name,
                 password: formData.password
             });
 
+            if(response.data.id == null && response.data.user == null){
+                navigate('../login');
+            }else{
+                // Сохраняем пользователя в Redux
+                dispatch(setUser({
+                    id: response.data.id,
+                    name: response.data.user
+                }));
 
-
-            // Сохраняем пользователя в Redux
-            dispatch(setUser({
-                id: response.data.user.id,
-                name: response.data.user.name
-            }));
-
-            // Можно добавить перенаправление после успешной регистрации
-            //navigate('/dashboard');
-
+                navigate('./');
+            }
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data?.message || 'Ошибка регистрации');
