@@ -6,7 +6,11 @@ import Footer from "./Footer";
 import event from "../images/event.jpg"
 import Header from './Header';
 
+
+import { useAppDispatch, useAppSelector } from '../hook';
+import { fetchEventCategories } from '../store/eventCategoriesActions';
 import { RootState } from '../store/store';
+
 
 const LkPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'profile' | 'favorites' | 'categories'>('profile');
@@ -18,6 +22,13 @@ const LkPage: React.FC = () => {
             navigate('/login');
         }
     }, [isAuthenticated, navigate]);
+
+    const dispatch = useAppDispatch();
+    const { items, loading, error } = useAppSelector((state) => state.eventCategories);
+
+    useEffect(() => {
+        dispatch(fetchEventCategories());
+    }, [dispatch]);
 
     return (
         <div className="main main_lk">
@@ -97,6 +108,28 @@ const LkPage: React.FC = () => {
                                             <button className="like" />
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        )}
+                        {activeTab === 'categories' && (
+                            <div className="lk-categories">
+                               <h3 className="lk-categories__title">Избранные Категории</h3>
+                               <div className="lk-categories__box">
+                                    {items.length > 0 ? (
+                                        items.map(eventItem => (
+                                            <button
+                                                type="button"
+                                                className={`category-btn about`}
+                                                data-category={eventItem.slug}
+                                                key={eventItem.slug}
+                                                // onClick={() => handleCategoryToggle(eventItem.slug)}
+                                            >
+                                                {eventItem.name}
+                                            </button>
+                                        ))
+                                    ) : (
+                                        <div>Событий не найдено</div>
+                                    )}
                                 </div>
                             </div>
                         )}
