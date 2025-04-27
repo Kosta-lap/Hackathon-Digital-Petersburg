@@ -22,6 +22,7 @@ const SearchPage: React.FC = () => {
         timeTo: '',
         categories: [] as string[]
     });
+    const [isSidebarActive, setIsSidebarActive] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage] = useState(7); // Количество карточек на странице
@@ -237,6 +238,9 @@ const SearchPage: React.FC = () => {
         // Здесь будет логика отправки запроса на сервер с параметрами поиска
         // Например: dispatch(fetchEventsByParams(searchParams));
     };
+    const handleSideBarOpen = () => {
+        setIsSidebarActive(prev => !prev); // Переключаем состояние
+      };
 
 
     if (error) {
@@ -252,7 +256,13 @@ const SearchPage: React.FC = () => {
                         <div className="lk-content search">
                             {!loading && !error && (
                                 <>
-                                    <form onSubmit={handleSearchSubmit}>
+                                    <div className={`search__side-bar ${isSidebarActive ? 'active' : ''}`}>
+                                        <div onClick={handleSideBarOpen} className="search__side-bar-btn">
+
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                    <form className={`${isSidebarActive ? 'active' : ''}`} onSubmit={handleSearchSubmit}>
                                         <div className="search_form">
                                             <div className="input_box">
                                                 <h4>Цена</h4>
@@ -355,9 +365,9 @@ const SearchPage: React.FC = () => {
                                         </div>
                                     </form>
                                     <div className="search_response">
-                                        <div className="response_box">
+                                        <div className="response_box search__response-box">
                                             {currentCards.map(event => (
-                                                <div className="lk-favorite_card lk-favorite-card" key={event.id}>
+                                                <div className="lk-favorite_card lk-favorite-card search-card" key={event.id}>
                                                     <img src={event_img} alt="" className="lk-favorite-card__image" />
                                                     <div className="lk-favorite-card__desc">
                                                         <h4>{event.title}</h4>
