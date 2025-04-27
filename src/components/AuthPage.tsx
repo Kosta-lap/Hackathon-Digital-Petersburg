@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import img from "../images/reg-log-logo.svg";
 
 const AuthPage: React.FC = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -51,7 +52,10 @@ const AuthPage: React.FC = () => {
     return (
         <main className="reg-log">
             <div className="reg-log-header container">
-                Логоип
+                <a href="/">
+                
+                <img src={img} alt="logo"/>
+                </a>
             </div>
             <div className="container">
                 <div className="reg-log-content">
@@ -60,7 +64,7 @@ const AuthPage: React.FC = () => {
                     </div>
                     <div className="reg-log-content__form">
                         <form method="post" action="./index.html" className="reg-log-form">
-                            <h3 className="reg-log-form__title">Регистрация</h3>
+                            <h3 className="reg-log-form__title">Войти</h3>
                             <div className="reg-log-form__input-block">
                                 <h4 className="reg-log-form__input-title">Имя</h4>
                                 <input type="text" placeholder="Введите своё имя" className="reg-log-form__input" />
