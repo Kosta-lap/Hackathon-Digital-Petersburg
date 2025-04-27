@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import img from "../images/header-logo.svg";
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const Header: React.FC = () => {
   const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate();
+  const { isAuthenticated, name } = useSelector((state: RootState) => state.user);
 
 
   useEffect(() => {
@@ -23,22 +26,24 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  const handleStartClick = () => {
-    navigate('/regist');
-  };
-
-  const handleLoginClick = () => {
-    navigate('/login');
-  };
-
   return (
     <header className={isSticky ? 'sticky' : ''}>
       <div className="container">
         <div className="header_box">
-          <img className="header-logo" src={img} alt='pic'></img>
+          <img className="header-logo" src={img} alt='pic' onClick={()=>{ console.log("Clicked!"); navigate("../lk") }} ></img>
           <nav className="header_nav">
-            <button type="button" onClick={handleStartClick}>Начать</button>
-            <button type="button" onClick={handleLoginClick}>Войти</button>
+            {!isAuthenticated && (
+              <>
+                <button type="button" onClick={() => { navigate("../regist") }}>Начать</button>
+                <button type="button" onClick={() => { navigate("../login") }}>Войти</button>
+              </>
+            )}
+            {isAuthenticated && (
+              <>
+                <button type="button" onClick={() => { navigate("../search") }}>Поиск</button>
+                <button type="button" onClick={() => { navigate("../lk") }}>Личный Кабинет</button>
+              </>
+            )}
           </nav>
         </div>
       </div>

@@ -1,8 +1,65 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/userSlice';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+interface FormData {
+    name: string;
+    password: string;
+}
 import img from "../images/reg-log-logo.svg";
 
 const AuthPage: React.FC = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [formData, setFormData] = useState<FormData>({ name: '', password: '' });
+
+    const [error, setError] = useState<string | null>(null);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError(null);
+
+        console.log(formData.name)
+        console.log(formData.password)
+
+        try {
+            // Отправка данных на сервер
+            const response = await axios.post('http://localhost:8000/api/auth/login/', {
+                username: formData.name,
+                password: formData.password
+            });
+
+            if(response.data.flag){
+                dispatch(setUser({
+                    id: response.data.id,
+                    name: response.data.user
+                }));
+                navigate("../lk")
+            }else{
+                console.log("wrong pass");
+                //очищать поля
+            }
+
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || 'Ошибка регистрации');
+            } else {
+                setError('Неизвестная ошибка');
+            }
+        }
+    };
+
 
     useEffect(() => {
         const updateEyeRotation = (mouseX: number, mouseY: number) => {
@@ -64,14 +121,28 @@ const AuthPage: React.FC = () => {
                     </div>
                     <div className="reg-log-content__form">
                         <form method="post" action="./index.html" className="reg-log-form">
-                            <h3 className="reg-log-form__title">Войти</h3>
+                            <h3 className="reg-log-form__title">Регистрация</h3>
                             <div className="reg-log-form__input-block">
                                 <h4 className="reg-log-form__input-title">Имя</h4>
-                                <input type="text" placeholder="Введите своё имя" className="reg-log-form__input" />
+                                <input
+                                    type="text"
+                                    name='name'
+                                    placeholder="Введите своё имя"
+                                    className="reg-log-form__input"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                />
                             </div>
                             <div className="reg-log-form__input-block">
                                 <h4 className="reg-log-form__input-title">Пароль</h4>
-                                <input name="login" type="password" placeholder="Введите пароль" className="reg-log-form__input" />
+                                <input
+                                    name="password"
+                                    type="password"
+                                    placeholder="Введите пароль"
+                                    className="reg-log-form__input"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                />
                             </div>
                             <button type="submit" name="action" className="reg-log-form__send-btn" value="Reg-logist">
                                 Войти

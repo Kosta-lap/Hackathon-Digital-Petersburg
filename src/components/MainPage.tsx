@@ -8,7 +8,6 @@ import desc_f from "../images/desc_f.svg";
 import desc_s from "../images/desc_s.svg";
 import desc_t from "../images/desc_t.svg";
 
-
 import Header from "../components/Header"
 import EventsExample from './EventsExample';
 import Footer from "./Footer";

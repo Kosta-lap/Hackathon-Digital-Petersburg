@@ -95,10 +95,16 @@ header.sticky {
   position: relative;
   z-index: 5;
   white-space: nowrap;
+  margin: 0px 30px 0px 0px;
 }
+
 .header_nav{
   display: flex;
   gap:calc(10px + (30 - 10) * (100vw - 320px) / (1920 - 320));
+}
+
+.header_box button:last-child {
+  margin: 0px;
 }
 
 .header_box button::after {
@@ -1075,6 +1081,16 @@ footer {
   margin-bottom: 25px;
 }
 
+.input_box .address{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input_box .address input{
+  width: 180px;
+  margin-left: 20px;
+}
 
 .check_box {
   display: flex;
