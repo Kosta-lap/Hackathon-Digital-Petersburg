@@ -1105,8 +1105,22 @@ footer {
   font-size: 16px;
 }
 
+.text_box.time {
+  display: flex;
+  flex-direction: column;
+}
+
+.text_box.time label {
+  margin-bottom: 12px;
+}
+
 .text_box.time input {
+  width: 180px;
   margin: 0px 5px;
+}
+
+.lk-favorite-card__image{
+  object-fit: cover;
 }
 
 .category_box {

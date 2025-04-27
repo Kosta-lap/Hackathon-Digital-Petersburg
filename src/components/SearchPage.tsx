@@ -7,12 +7,29 @@ import axios from 'axios';
 
 import event_img from "../images/event.jpg"
 
-interface CoordsResponse{
+interface CoordsResponse {
     ID: number,
-    Building_ID: number, 
+    Building_ID: number,
     Name: string,
     Longitude: number,
     Latitude: number
+}
+
+interface Event {
+    dates: Array<{
+        start: number;
+        end: number;
+    }>;
+    description: string;
+    images: Array<{
+        image: string;
+        source?: any;
+    }>;
+    place: {
+        id: number;
+    };
+    site_url: string;
+    title: string;
 }
 
 const SearchPage: React.FC = () => {
@@ -36,96 +53,11 @@ const SearchPage: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage] = useState(7); // Количество карточек на странице
 
-    const [events, setEvents] = useState([
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 1, title: "Название события 1", description: "Описание 1", location: "Место 1", time: "10:00" },
-        { id: 2, title: "Название события 2", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 3, title: "Название события 3", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 4, title: "Название события 4", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 5, title: "Название события 5", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 6, title: "Название события 6", description: "Описание 2", location: "Место 2", time: "12:00" },
-        { id: 7, title: "Название события 7", description: "Описание 2", location: "Место 2", time: "12:00" },
-    ]);
+    const [events, setEvents] = useState<Event[]>([]);
 
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentCards = events.slice(indexOfFirstCard, indexOfLastCard);
+    const currentCards: any = events.slice(indexOfFirstCard, indexOfLastCard);
     const totalPages = Math.ceil(events.length / cardsPerPage);
 
     const renderPagination = () => {
@@ -241,22 +173,62 @@ const SearchPage: React.FC = () => {
     };
 
     // Обработчик отправки формы
-    const  handleSearchSubmit = async (e: React.FormEvent) => {
+    const handleSearchSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Search params:', encodeURIComponent(searchParams.maxMinutes));
-        const response = await axios.get<CoordsResponse>(`https://geocode.gate.petersburg.ru/parse/eas?street=${encodeURIComponent(searchParams.maxMinutes)}`, {
-            headers: {
-                'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhU1RaZm42bHpTdURYcUttRkg1SzN5UDFhT0FxUkhTNm9OendMUExaTXhFIn0.eyJleHAiOjE4Mzk0MzU0OTEsImlhdCI6MTc0NDc0MTA5MSwianRpIjoiMjU4MDNmMGEtNWZmYi00NzFiLThlM2QtMzFlMjY1ZGJhMDQyIiwiaXNzIjoiaHR0cHM6Ly9rYy5wZXRlcnNidXJnLnJ1L3JlYWxtcy9lZ3MtYXBpIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjM5YzBmYzE4LTUyOWItNDYyMy05ODgzLTI1MDA4Njg4NDkyYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLXJlc3QtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjFmYzBlY2NkLWEwNzUtNDNiYi04MzI3LTlkYmEyMDg4ZWFlYyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZWdzLWFwaSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIxZmMwZWNjZC1hMDc1LTQzYmItODMyNy05ZGJhMjA4OGVhZWMiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiLQmtC-0L3RgdGC0LDQvdGC0LjQvSDQmtC-0L3RgdGC0LDQvdGC0LjQvSIsInByZWZlcnJlZF91c2VybmFtZSI6IjgzYzYxMWQzYmIxMWFmNmI3ZjhhNWFmOGIzYTgyOGNlIiwiZ2l2ZW5fbmFtZSI6ItCa0L7QvdGB0YLQsNC90YLQuNC9IiwiZmFtaWx5X25hbWUiOiLQmtC-0L3RgdGC0LDQvdGC0LjQvSJ9.jIER5r_7BVW0UeS8SQx9TSYq82qidrvs5C9QQ5hBMqHNBt5P3oXEZ6aXnEXPkH6pVpaW3u3JLNDYX_7Qcjy9WtB5enRRX2N-UCK4B5WkJZW30g-bEbdWn0Rg9PUJ9tvCkDyULYVI4P0ZbHvAABrDkzOWiu6GLXmgtQabnKuhdZOy0If0x1WvgoUjofBaJTrINQM5Bxd1tqQ_3QXT3oR9TnLBlUUKHBfgHA83SJKfEe2irsSo_bZ-cXvUoWLzKQX1ORZ2YwGQavZ5DPeDiWhG0kMZHVcdlofvG5BsRVPAIf8i2eMdQhzZxqG5g7U6XaQg8976iflQUCEx0T5-RruwRA` // Добавляем токен в заголовок
-            }
-        });
-        if (response.data) {
-            console.log(response.data);
+
+        try {
+            const response = await axios.get<CoordsResponse>(
+                `https://geocode.gate.petersburg.ru/parse/eas?street=${encodeURIComponent(searchParams.maxMinutes)}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhU1RaZm42bHpTdURYcUttRkg1SzN5UDFhT0FxUkhTNm9OendMUExaTXhFIn0.eyJleHAiOjE4Mzk0MzU0OTEsImlhdCI6MTc0NDc0MTA5MSwianRpIjoiMjU4MDNmMGEtNWZmYi00NzFiLThlM2QtMzFlMjY1ZGJhMDQyIiwiaXNzIjoiaHR0cHM6Ly9rYy5wZXRlcnNidXJnLnJ1L3JlYWxtcy9lZ3MtYXBpIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjM5YzBmYzE4LTUyOWItNDYyMy05ODgzLTI1MDA4Njg4NDkyYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLXJlc3QtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjFmYzBlY2NkLWEwNzUtNDNiYi04MzI3LTlkYmEyMDg4ZWFlYyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZWdzLWFwaSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIxZmMwZWNjZC1hMDc1LTQzYmItODMyNy05ZGJhMjA4OGVhZWMiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiLQmtC-0L3RgdGC0LDQvdGC0LjQvSDQmtC-0L3RgdGC0LDQvdGC0LjQvSIsInByZWZlcnJlZF91c2VybmFtZSI6IjgzYzYxMWQzYmIxMWFmNmI3ZjhhNWFmOGIzYTgyOGNlIiwiZ2l2ZW5fbmFtZSI6ItCa0L7QvdGB0YLQsNC90YLQuNC9IiwiZmFtaWx5X25hbWUiOiLQmtC-0L3RgdGC0LDQvdGC0LjQvSJ9.jIER5r_7BVW0UeS8SQx9TSYq82qidrvs5C9QQ5hBMqHNBt5P3oXEZ6aXnEXPkH6pVpaW3u3JLNDYX_7Qcjy9WtB5enRRX2N-UCK4B5WkJZW30g-bEbdWn0Rg9PUJ9tvCkDyULYVI4P0ZbHvAABrDkzOWiu6GLXmgtQabnKuhdZOy0If0x1WvgoUjofBaJTrINQM5Bxd1tqQ_3QXT3oR9TnLBlUUKHBfgHA83SJKfEe2irsSo_bZ-cXvUoWLzKQX1ORZ2YwGQavZ5DPeDiWhG0kMZHVcdlofvG5BsRVPAIf8i2eMdQhzZxqG5g7U6XaQg8976iflQUCEx0T5-RruwRA`
+                    }
+                }
+            );
+
+            console.log(response);
             console.log(searchParams);
+
+            let newTimeFrom = new Date(searchParams.timeFrom);
+            let newTimeTo = new Date(searchParams.timeTo)
+
+            if (response.data) {
+                let str_for_api = `https://spb-afisha.gate.petersburg.ru/kg/external/afisha/events?lat=${response.data.Latitude}&lng=${response.data.Longitude}&radius=100&categories=${searchParams.categories.join("%2")}&fields=dates%2Ctitle%2Cdescription%2Cimages%2Cplace%2Csite_url&fields=image&actual_since=${Math.floor(newTimeFrom.getTime()/1000)}&actual_until=${Math.floor(newTimeTo.getTime()/1000)}&page=1&count=10`;
+                console.log(str_for_api);
+
+                // Функция для повторных попыток
+                const fetchWithRetry = async (url: string, retries = 3, delay = 1000) => {
+                    for (let i = 0; i < retries; i++) {
+                        try {
+                            const result = await axios.get<any>(url, {
+                                headers: {
+                                    'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhU1RaZm42bHpTdURYcUttRkg1SzN5UDFhT0FxUkhTNm9OendMUExaTXhFIn0.eyJleHAiOjE4Mzk0MzU0OTEsImlhdCI6MTc0NDc0MTA5MSwianRpIjoiMjU4MDNmMGEtNWZmYi00NzFiLThlM2QtMzFlMjY1ZGJhMDQyIiwiaXNzIjoiaHR0cHM6Ly9rYy5wZXRlcnNidXJnLnJ1L3JlYWxtcy9lZ3MtYXBpIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjM5YzBmYzE4LTUyOWItNDYyMy05ODgzLTI1MDA4Njg4NDkyYyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLXJlc3QtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjFmYzBlY2NkLWEwNzUtNDNiYi04MzI3LTlkYmEyMDg4ZWFlYyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZWdzLWFwaSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIxZmMwZWNjZC1hMDc1LTQzYmItODMyNy05ZGJhMjA4OGVhZWMiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiLQmtC-0L3RgdGC0LDQvdGC0LjQvSDQmtC-0L3RgdGC0LDQvdGC0LjQvSIsInByZWZlcnJlZF91c2VybmFtZSI6IjgzYzYxMWQzYmIxMWFmNmI3ZjhhNWFmOGIzYTgyOGNlIiwiZ2l2ZW5fbmFtZSI6ItCa0L7QvdGB0YLQsNC90YLQuNC9IiwiZmFtaWx5X25hbWUiOiLQmtC-0L3RgdGC0LDQvdGC0LjQvSJ9.jIER5r_7BVW0UeS8SQx9TSYq82qidrvs5C9QQ5hBMqHNBt5P3oXEZ6aXnEXPkH6pVpaW3u3JLNDYX_7Qcjy9WtB5enRRX2N-UCK4B5WkJZW30g-bEbdWn0Rg9PUJ9tvCkDyULYVI4P0ZbHvAABrDkzOWiu6GLXmgtQabnKuhdZOy0If0x1WvgoUjofBaJTrINQM5Bxd1tqQ_3QXT3oR9TnLBlUUKHBfgHA83SJKfEe2irsSo_bZ-cXvUoWLzKQX1ORZ2YwGQavZ5DPeDiWhG0kMZHVcdlofvG5BsRVPAIf8i2eMdQhzZxqG5g7U6XaQg8976iflQUCEx0T5-RruwRA`
+                                }
+                            });
+                            return result;
+                        } catch (error: any) {
+                            if (error.response?.status !== 502 || i === retries - 1) {
+                                throw error;
+                            }
+                            console.log(`Получена ошибка 502. Повторная попытка ${i + 1}/${retries} через ${delay}ms`);
+                            await new Promise(res => setTimeout(res, delay));
+                        }
+                    }
+                };
+
+                const response_events: any = await fetchWithRetry(str_for_api);
+                console.log(response_events.data.data);
+                setEvents(response_events.data.data);
+            }
+        } catch (error) {
+            console.error('Ошибка при выполнении запроса:', error);
+            // Здесь можно добавить обработку ошибки, например показать сообщение пользователю
         }
     };
     const handleSideBarOpen = () => {
         setIsSidebarActive(prev => !prev); // Переключаем состояние
-      };
+    };
 
 
     if (error) {
@@ -333,11 +305,11 @@ const SearchPage: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className="input_box">
-                                                <h4>Время</h4>
+                                                <h4>Интервал поиска</h4>
                                                 <div className="text_box time">
                                                     <label htmlFor="count_t_ot">от
                                                         <input
-                                                            type="text"
+                                                            type="date"
                                                             id="count_t_ot"
                                                             className='reg-log-form__input'
                                                             name="timeFrom"
@@ -347,7 +319,7 @@ const SearchPage: React.FC = () => {
                                                     </label>
                                                     <label htmlFor="count_t_do">до
                                                         <input
-                                                            type="text"
+                                                            type="date"
                                                             id="count_t_do"
                                                             className='reg-log-form__input'
                                                             name="timeTo"
@@ -382,19 +354,31 @@ const SearchPage: React.FC = () => {
                                             </button>
                                         </div>
                                     </form>
+
                                     <div className="search_response">
                                         <div className="response_box search__response-box">
-                                            {currentCards.map(event => (
-                                                <div className="lk-favorite_card lk-favorite-card search-card" key={event.id}>
-                                                    <img src={event_img} alt="" className="lk-favorite-card__image" />
+                                            {currentCards.map((event: Event, index: number) => (
+                                                <div className="lk-favorite_card lk-favorite-card search-card" key={index}>
+                                                    <img
+                                                        src={event.images[0]?.image || event_img}
+                                                        alt={event.title}
+                                                        className="lk-favorite-card__image"
+                                                    />
                                                     <div className="lk-favorite-card__desc">
                                                         <h4>{event.title}</h4>
                                                         <div className="lk-favorite-card__about">
                                                             <p>{event.description}</p>
-                                                            <p>{event.location}, {event.time}</p>
+                                                            <p>{new Date(event.dates[event.dates.length - 1].end * 1000).toLocaleDateString()}</p>
                                                         </div>
                                                         <div className="lk-favorite-card__actions">
-                                                            <button className="about">Подробнее</button>
+                                                            <a
+                                                                href={event.site_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="about"
+                                                            >
+                                                                Подробнее
+                                                            </a>
                                                             <button className="like active" />
                                                         </div>
                                                     </div>
