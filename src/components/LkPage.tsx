@@ -1,15 +1,27 @@
-// import React, { useState } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Footer from "./Footer";
 
 import event from "../images/event.jpg"
 import Header from './Header';
 
+
 import { useAppDispatch, useAppSelector } from '../hook';
 import { fetchEventCategories } from '../store/eventCategoriesActions';
+import { RootState } from '../store/store';
+
 
 const LkPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'profile' | 'favorites' | 'categories'>('profile');
+    const { isAuthenticated, name } = useSelector((state: RootState) => state.user);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/login');
+        }
+    }, [isAuthenticated, navigate]);
 
     const dispatch = useAppDispatch();
     const { items, loading, error } = useAppSelector((state) => state.eventCategories);
