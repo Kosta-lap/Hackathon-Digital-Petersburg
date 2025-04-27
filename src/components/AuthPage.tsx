@@ -33,37 +33,31 @@ const AuthPage: React.FC = () => {
         console.log(formData.name)
         console.log(formData.password)
 
-        dispatch(setUser({  
-            id: "1",
-            name: "lox"
-        }));
-        navigate("../lk")
+        try {
+            // Отправка данных на сервер
+            const response = await axios.post('http://localhost:8000/api/auth/login/', {
+                username: formData.name,
+                password: formData.password
+            });
 
-        // try {
-        //     // Отправка данных на сервер
-        //     const response = await axios.post('http://localhost:8000/api/auth/login/', {
-        //         username: formData.name,
-        //         password: formData.password
-        //     });
+            if(response.data.flag){
+                dispatch(setUser({
+                    id: response.data.id,
+                    name: response.data.user
+                }));
+                navigate("../lk")
+            }else{
+                console.log("wrong pass");
+                //очищать поля
+            }
 
-        //     if(response.data.flag){
-        //         dispatch(setUser({
-        //             id: response.data.id,
-        //             name: response.data.user
-        //         }));
-        //         navigate("../lk")
-        //     }else{
-        //         console.log("wrong pass");
-        //         //очищать поля
-        //     }
-
-        // } catch (err) {
-        //     if (axios.isAxiosError(err)) {
-        //         setError(err.response?.data?.message || 'Ошибка регистрации');
-        //     } else {
-        //         setError('Неизвестная ошибка');
-        //     }
-        // }
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || 'Ошибка регистрации');
+            } else {
+                setError('Неизвестная ошибка');
+            }
+        }
     };
 
 
